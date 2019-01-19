@@ -1,0 +1,9 @@
+ow_userfiles/plugins/photo/
+ow_userfiles/themes/
+ow_static/themes/
+ow_smarty/template_c/
+ow_userfiles/plugins/base/avatars/
+ow_includes/config.php
+
+# Logs files can safely be ignored.
+*.log
