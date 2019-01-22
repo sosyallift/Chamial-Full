@@ -241,7 +241,8 @@ class OW_Application
         $viewRenderer->assignVar('siteUrl', OW_URL_HOME);
         $viewRenderer->assignVar('isAuthenticated', OW::getUser()->isAuthenticated());
         $viewRenderer->assignVar('bottomPoweredByLink',
-            '<a href="https://www.chamial.com/" target="_blank" title="Powered by CHAMIAL"><img src="'.OW_URL_STATIC.'plugins/base/img/powered-by-chamial.png" alt="CHAMIAL.COM" /></a>');
+            '<a href="https://www.chamial.com/" target="_blank" title="Powered by CHAMIAL"><img src="'.OW_URL_STATIC.'plugins/base/img/powered-by-chamial.png" alt="CHAMIAL.COM" /></a>
+			<a href="https://developers.oxwall.com/" target="_blank" title="fork of Oxwall"><img src="' . $currentThemeImagesDir . 'powered-by-oxwall.png" alt="Oxwall Community Software" /></a>');
 
         $spotParams = array(
             "platform-version" => OW::getConfig()->getValue("base", "soft_version"),

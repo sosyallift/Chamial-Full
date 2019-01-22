@@ -12,8 +12,6 @@ AddEncoding gzip .gzip
 
 
 RewriteCond %{REQUEST_URI} !^/index\.php
-RewriteCond %{REQUEST_URI} !^/adminer\.php
-RewriteCond %{REQUEST_URI} !^/test\.php
 RewriteCond %{REQUEST_URI} !/ow_updates/index\.php
 RewriteCond %{REQUEST_URI} !/ow_updates/
 RewriteCond %{REQUEST_URI} !/ow_cron/run\.php
