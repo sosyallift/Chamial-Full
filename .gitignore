@@ -4,6 +4,7 @@ ow_static/themes/
 ow_smarty/template_c/
 ow_userfiles/plugins/base/avatars/
 ow_includes/config.php
+tools/
 
 # Logs files can safely be ignored.
 *.log
