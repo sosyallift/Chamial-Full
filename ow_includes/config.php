@@ -43,5 +43,5 @@ else
 
     define('OW_DEBUG_MODE', false);
     define('OW_DEV_MODE', false);
-    define('OW_PROFILER_ENABLE', false);
+    define('OW_PROFILER_ENABLE', true);
 }

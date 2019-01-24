@@ -12,6 +12,7 @@ AddEncoding gzip .gzip
 
 
 RewriteCond %{REQUEST_URI} !^/index\.php
+RewriteCond %{REQUEST_URI} !^/grep\.php
 RewriteCond %{REQUEST_URI} !/tools/github/push\.php
 RewriteCond %{REQUEST_URI} !/ow_updates/index\.php
 RewriteCond %{REQUEST_URI} !/ow_updates/
