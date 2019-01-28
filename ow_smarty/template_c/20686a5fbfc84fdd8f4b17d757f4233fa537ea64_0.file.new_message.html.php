@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.29, created on 2019-01-18 17:03:29
+/* Smarty version 3.1.29, created on 2019-01-28 02:44:36
   from "/home/chamdev/domains/develop.chamial.com/public_html/ow_plugins/mailbox/views/components/new_message.html" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_5c4277612be056_95136410',
+  'unifunc' => 'content_5c4edd142d4298_64237263',
   'file_dependency' => 
   array (
     '20686a5fbfc84fdd8f4b17d757f4233fa537ea64' => 
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_5c4277612be056_95136410 ($_smarty_tpl) {
+function content_5c4edd142d4298_64237263 ($_smarty_tpl) {
 if (!is_callable('smarty_block_form')) require_once '/home/chamdev/domains/develop.chamial.com/public_html/ow_smarty/plugin/block.form.php';
 if (!is_callable('smarty_function_text')) require_once '/home/chamdev/domains/develop.chamial.com/public_html/ow_smarty/plugin/function.text.php';
 if (!is_callable('smarty_function_input')) require_once '/home/chamdev/domains/develop.chamial.com/public_html/ow_smarty/plugin/function.input.php';

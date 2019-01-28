@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.29, created on 2019-01-18 16:55:04
+/* Smarty version 3.1.29, created on 2019-01-28 02:44:36
   from "/home/chamdev/domains/develop.chamial.com/public_html/ow_themes/simplicity/decorators/button.html" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_5c427568a01198_95104476',
+  'unifunc' => 'content_5c4edd142fbb73_29769420',
   'file_dependency' => 
   array (
     'f54e2aabe8ee812fad1e20f506547b04bb0d80d1' => 
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_5c427568a01198_95104476 ($_smarty_tpl) {
+function content_5c4edd142fbb73_29769420 ($_smarty_tpl) {
 if (!is_callable('smarty_function_text')) require_once '/home/chamdev/domains/develop.chamial.com/public_html/ow_smarty/plugin/function.text.php';
 ?>
 

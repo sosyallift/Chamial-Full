@@ -175,6 +175,7 @@ class ADMIN_CTRL_Storage extends ADMIN_CTRL_StorageAbstract
         {
             return;
         }
+
         //TODO check if the result is false | null
         $params = array(
             "oldVersion" => OW::getConfig()->getValue("base", "soft_version"),
@@ -206,45 +207,12 @@ class ADMIN_CTRL_Storage extends ADMIN_CTRL_StorageAbstract
         $language = OW::getLanguage();
         $tempDir = OW_DIR_PLUGINFILES . "ow" . DS . "core" . DS;
 
-        $ftp = $this->getFtpConnection();
-
         $errorMessage = false;
 
         OW::getApplication()->setMaintenanceMode(true);
-        $archivePath = $this->storageService->downloadPlatform();
 
-        if ( !file_exists($archivePath) )
-        {
+        if (!$this->storageService->downloadAndExtractPlatform()) {
             $errorMessage = $language->text("admin", "core_update_download_error");
-        }
-        else
-        {
-            mkdir($tempDir);
-            $zip = new ZipArchive();
-            $zopen = $zip->open($archivePath);
-
-            if ( $zopen === true && file_exists($tempDir) )
-            {
-                $zip->extractTo($tempDir);
-                $zip->close();
-                $ftp->uploadDir($tempDir, OW_DIR_ROOT);
-                $ftp->chmod(0777, OW_DIR_STATIC);
-                $ftp->chmod(0777, OW_DIR_STATIC_PLUGIN);
-            }
-            else
-            {
-                $errorMessage = $language->text("admin", "core_update_unzip_error");
-            }
-        }
-
-        if ( file_exists($tempDir) )
-        {
-            UTIL_File::removeDir($tempDir);
-        }
-
-        if ( file_exists($archivePath) )
-        {
-            unlink($archivePath);
         }
 
         if ( $errorMessage !== false )

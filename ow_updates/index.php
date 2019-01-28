@@ -57,7 +57,6 @@ OW_Auth::getInstance()->setAuthenticator(new OW_SessionAuthenticator());
 $currentBuild = (int) $db->queryForColumn("SELECT `value` FROM `" . OW_DB_PREFIX . "base_config` WHERE `key` = 'base' AND `name` = 'soft_build'");
 
 $currentXmlInfo = (array) simplexml_load_file(OW_DIR_ROOT . 'ow_version.xml');
-
 if ( (int) $currentXmlInfo['build'] > $currentBuild )
 {
     $db->query("UPDATE `" . OW_DB_PREFIX . "base_config` SET `value` = 1 WHERE `key` = 'base' AND `name` = 'maintenance'");
@@ -65,55 +64,54 @@ if ( (int) $currentXmlInfo['build'] > $currentBuild )
     $owpUpdateDir = UPDATE_DIR_ROOT . 'updates' . DS;
 
     $updateDirList = array();
+    if (file_exists($owpUpdateDir)) {
+        $handle = opendir($owpUpdateDir);
 
-    $handle = opendir($owpUpdateDir);
-
-    while ( ($item = readdir($handle)) !== false )
-    {
-        if ( $item === '.' || $item === '..' )
+        while ( ($item = readdir($handle)) !== false )
         {
-            continue;
+            if ( $item === '.' || $item === '..' )
+            {
+                continue;
+            }
+
+            $dirPath = $owpUpdateDir . ((int) $item);
+
+            if ( file_exists($dirPath) && is_dir($dirPath) )
+            {
+                $updateDirList[] = (int) $item;
+            }
         }
 
-        $dirPath = $owpUpdateDir . ((int) $item);
-
-        if ( file_exists($dirPath) && is_dir($dirPath) )
+        foreach ( $updateDirList as $item )
         {
-            $updateDirList[] = (int) $item;
-        }
-    }
+            if ( $item > $currentBuild )
+            {
+                include($owpUpdateDir . $item . DS . 'update.php');
+            }
 
-    sort($updateDirList);
+            //        $updateXmlInfo = (array) simplexml_load_file($owpUpdateDir . $item . DS . 'update.xml');
 
-    foreach ( $updateDirList as $item )
-    {
-        if ( $item > $currentBuild )
-        {
-            include($owpUpdateDir . $item . DS . 'update.php');
+            $db->query("UPDATE `" . OW_DB_PREFIX . "base_config` SET `value` = :build WHERE `key` = 'base' AND `name` = 'soft_build'", array('build' => $currentXmlInfo['build']));
+            $db->query("UPDATE `" . OW_DB_PREFIX . "base_config` SET `value` = :version WHERE `key` = 'base' AND `name` = 'soft_version'", array('version' => $currentXmlInfo['version']));
         }
 
-//        $updateXmlInfo = (array) simplexml_load_file($owpUpdateDir . $item . DS . 'update.xml');
+        $db->query("UPDATE `" . OW_DB_PREFIX . "base_config` SET `value` = 0 WHERE `key` = 'base' AND `name` = 'update_soft'");
+        $db->query("UPDATE `" . OW_DB_PREFIX . "base_config` SET `value` = 0 WHERE `key` = 'base' AND `name` = 'maintenance'");
+        $db->query("UPDATE `" . OW_DB_PREFIX . "base_config` SET `value` = 1 WHERE `key` = 'base' AND `name` = 'dev_mode'");
 
-        $db->query("UPDATE `" . OW_DB_PREFIX . "base_config` SET `value` = :build WHERE `key` = 'base' AND `name` = 'soft_build'", array('build' => $currentXmlInfo['build']));
-        $db->query("UPDATE `" . OW_DB_PREFIX . "base_config` SET `value` = :version WHERE `key` = 'base' AND `name` = 'soft_version'", array('version' => $currentXmlInfo['version']));
-    }
+        $entries = UPDATER::getLogger()->getEntries();
 
-    $db->query("UPDATE `" . OW_DB_PREFIX . "base_config` SET `value` = 0 WHERE `key` = 'base' AND `name` = 'update_soft'");
-    $db->query("UPDATE `" . OW_DB_PREFIX . "base_config` SET `value` = 0 WHERE `key` = 'base' AND `name` = 'maintenance'");
-    $db->query("UPDATE `" . OW_DB_PREFIX . "base_config` SET `value` = 1 WHERE `key` = 'base' AND `name` = 'dev_mode'");
-
-    $entries = UPDATER::getLogger()->getEntries();
-
-    if ( !empty($entries) )
-    {
-        $query = "INSERT INTO `" . OW_DB_PREFIX . "base_log` (`message`, `type`, `key`, `timeStamp`) VALUES (:message, 'ow_update', 'core', :time)";
-        try
+        if ( !empty($entries) )
         {
-            $db->query($query, array('message' => json_encode($entries), 'time' => time()));
-        }
-        catch ( Exception $e )
-        {
+            $query = "INSERT INTO `" . OW_DB_PREFIX . "base_log` (`message`, `type`, `key`, `timeStamp`) VALUES (:message, 'ow_update', 'core', :time)";
+            try
+            {
+                $db->query($query, array('message' => json_encode($entries), 'time' => time()));
+            }
+            catch ( Exception $e )
+            {
 
+            }
         }
     }
 }

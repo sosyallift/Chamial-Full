@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.29, created on 2019-01-18 16:55:04
+/* Smarty version 3.1.29, created on 2019-01-28 02:44:36
   from "/home/chamdev/domains/develop.chamial.com/public_html/ow_system_plugins/base/views/components/menu.html" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_5c427568f137f7_36477911',
+  'unifunc' => 'content_5c4edd141cd173_77070248',
   'file_dependency' => 
   array (
     '567ff59f4b8f529ba6c9d1707903bb5f341ec54b' => 
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_5c427568f137f7_36477911 ($_smarty_tpl) {
+function content_5c4edd141cd173_77070248 ($_smarty_tpl) {
 ?>
 <ul class="<?php echo $_smarty_tpl->tpl_vars['class']->value;?>
  clearfix">

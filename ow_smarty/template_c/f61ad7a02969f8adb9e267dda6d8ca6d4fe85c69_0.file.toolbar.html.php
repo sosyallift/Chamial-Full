@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.29, created on 2019-01-18 17:03:29
+/* Smarty version 3.1.29, created on 2019-01-28 02:44:36
   from "/home/chamdev/domains/develop.chamial.com/public_html/ow_plugins/mailbox/views/components/toolbar.html" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_5c42776124b0d1_72356356',
+  'unifunc' => 'content_5c4edd1425f428_07264930',
   'file_dependency' => 
   array (
     'f61ad7a02969f8adb9e267dda6d8ca6d4fe85c69' => 
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_5c42776124b0d1_72356356 ($_smarty_tpl) {
+function content_5c4edd1425f428_07264930 ($_smarty_tpl) {
 if (!is_callable('smarty_function_component')) require_once '/home/chamdev/domains/develop.chamial.com/public_html/ow_smarty/plugin/function.component.php';
 if (!is_callable('smarty_function_text')) require_once '/home/chamdev/domains/develop.chamial.com/public_html/ow_smarty/plugin/function.text.php';
 if ($_smarty_tpl->tpl_vars['chatModeEnabled']->value) {

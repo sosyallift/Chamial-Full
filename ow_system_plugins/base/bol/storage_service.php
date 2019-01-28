@@ -42,7 +42,7 @@ class BOL_StorageService extends BOL_StorageServiceOxwall
 
     public function checkUpdates()
     {
-  $requestArray = array("platform" => array(self::URI_VAR_BUILD => OW::getConfig()->getValue("base", "soft_build"), "engine" => "owengine", "site-url" => OW::getRouter()->getBaseUrl()), "items" => array());
+        $requestArray = array("platform" => array(self::URI_VAR_BUILD => OW::getConfig()->getValue("base", "soft_build"), "engine" => "owengine", "site-url" => OW::getRouter()->getBaseUrl()), "items" => array());
 
         $plugins = $this->pluginService->findRegularPlugins();
 
@@ -95,6 +95,17 @@ class BOL_StorageService extends BOL_StorageServiceOxwall
         if ( $response->getBody() )
         {
 			$resultArray = json_decode($response->getBody(), true);
+        }
+
+
+        // Check platform update
+        $newPlatform = $this->getPlatformInfoForUpdate();
+        if ($newPlatform) {
+            if ( empty($resultArray) || !is_array($resultArray) ) {
+                $resultArray = array();
+            }
+            $resultArray["update"] = array();
+            $resultArray["update"]['platform'] = $newPlatform['version'];
         }
 
 
@@ -272,8 +283,58 @@ class BOL_StorageService extends BOL_StorageServiceOxwall
      */
     public function getPlatformInfoForUpdate()
     {
-        $data = $this->triggerEventBeforeRequest();
-        return $this->requestGetResultAsJson($this->getStorageUrlOwEngine(self::URI_GET_PLATFORM_INFO), $data);
+        $currentVersion = OW::getConfig()->getValue("base", "soft_version");
+
+        $updatedVersion = false;
+        $updatedVersionNumber = PHP_INT_MAX;
+        $result = ausGetAllVersions();
+        if ($result && $result['notification_case'] == 'notification_operation_ok') {
+            $productVersions = $result['notification_data']['product_versions'];
+            foreach ($productVersions as $productVersion) {
+                $versionStatus = $productVersion['version_status'];
+                $versionNumber = $productVersion['version_number'];
+                if ($versionStatus != 1) {
+                    continue;
+                }
+                if (version_compare($versionNumber, $currentVersion, '<=')) {
+                    continue;
+                }
+                if (version_compare($updatedVersionNumber, $versionNumber, '>')) {
+                    $updatedVersionNumber = $versionNumber;
+                    $updatedVersion = $productVersion;
+                }
+            }
+        }
+
+        $updateInfo = false;
+        if ($updatedVersion) {
+            $result = ausGetVersion($updatedVersion['version_number']);
+            if ($result['notification_case'] == 'notification_operation_ok') {
+                $versionDetails = $result['notification_data'];
+                $updateInfo = array(
+                    "version"       => $versionDetails['version_number'],
+                    "info"          => $versionDetails['version_changelog'],
+                    "log"           => $versionDetails['version_changelog'],
+                    "minPhpVersion" => "5.5"
+                );
+            }
+        }
+
+        return $updateInfo;
+    }
+
+    public function downloadAndExtractPlatform()
+    {
+        $newPlatform = $this->getPlatformInfoForUpdate();
+        if (!$newPlatform) {
+            return false;
+        }
+
+        $result = ausDownloadFile('version_upgrade_file', $newPlatform['version']);
+        OW::getConfig()->saveConfig("base", "soft_version", $newPlatform['version']);
+        OW::getConfig()->saveConfig("base", "update_soft", 0);
+
+        return $result;
     }
 
     /**

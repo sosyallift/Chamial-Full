@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.29, created on 2019-01-18 17:03:29
+/* Smarty version 3.1.29, created on 2019-01-28 02:44:36
   from "/home/chamdev/domains/develop.chamial.com/public_html/ow_plugins/mailbox/views/components/console_list.html" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_5c4277613523b6_96779935',
+  'unifunc' => 'content_5c4edd1437d7f6_39615155',
   'file_dependency' => 
   array (
     'a728ae48e2d9d547e64310222ae5b7699e264c93' => 
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_5c4277613523b6_96779935 ($_smarty_tpl) {
+function content_5c4edd1437d7f6_39615155 ($_smarty_tpl) {
 if (!is_callable('smarty_function_text')) require_once '/home/chamdev/domains/develop.chamial.com/public_html/ow_smarty/plugin/function.text.php';
 ?>
 <div class="ow_console_list_wrapper OW_ConsoleListContainer">

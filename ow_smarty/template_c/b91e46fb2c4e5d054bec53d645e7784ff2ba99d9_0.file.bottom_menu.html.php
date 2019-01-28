@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.29, created on 2019-01-18 16:55:04
+/* Smarty version 3.1.29, created on 2019-01-28 02:44:36
   from "/home/chamdev/domains/develop.chamial.com/public_html/ow_system_plugins/base/views/components/bottom_menu.html" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_5c427568f219b5_25400033',
+  'unifunc' => 'content_5c4edd141e0786_93305214',
   'file_dependency' => 
   array (
     'b91e46fb2c4e5d054bec53d645e7784ff2ba99d9' => 
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_5c427568f219b5_25400033 ($_smarty_tpl) {
+function content_5c4edd141e0786_93305214 ($_smarty_tpl) {
 ?>
 <div class="ow_footer_menu">
 <?php

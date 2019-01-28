@@ -28,6 +28,8 @@ require_once OW_DIR_UTIL . 'string.php';
 require_once OW_DIR_CORE . 'autoload.php';
 require_once OW_DIR_CORE . 'exception.php';
 require_once OW_DIR_INC . 'function.php';
+require_once OW_DIR_INC . 'aus_core_configuration.php';
+require_once OW_DIR_INC . 'aus_core_functions.php';
 require_once OW_DIR_CORE . 'ow.php';
 require_once OW_DIR_CORE . 'plugin.php';
 require_once OW_DIR_CORE . 'filter.php';

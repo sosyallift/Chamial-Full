@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.29, created on 2019-01-18 17:03:36
+/* Smarty version 3.1.29, created on 2019-01-28 02:44:36
   from "/home/chamdev/domains/develop.chamial.com/public_html/ow_system_plugins/base/views/components/responsive_menu.html" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_5c42776845c668_87106175',
+  'unifunc' => 'content_5c4edd143c13a8_79233133',
   'file_dependency' => 
   array (
     '67f079dbec82fa944d9c7c16ef33140c951e5369' => 
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_5c42776845c668_87106175 ($_smarty_tpl) {
+function content_5c4edd143c13a8_79233133 ($_smarty_tpl) {
 ?>
 <div class="ow_responsive_menu ow_left" id="<?php echo $_smarty_tpl->tpl_vars['uniqId']->value;?>
 ">

@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.29, created on 2019-01-18 17:03:29
+/* Smarty version 3.1.29, created on 2019-01-28 02:44:36
   from "/home/chamdev/domains/develop.chamial.com/public_html/ow_system_plugins/base/decorators/floatbox.html" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_5c42776138f038_17380678',
+  'unifunc' => 'content_5c4edd143cb5a3_68633637',
   'file_dependency' => 
   array (
     'e963e3bbfbf6b44f81016cdc58fc2ef6bfe2e988' => 
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_5c42776138f038_17380678 ($_smarty_tpl) {
+function content_5c4edd143cb5a3_68633637 ($_smarty_tpl) {
 ?>
 
 <div style="display: none" id="floatbox_prototype">

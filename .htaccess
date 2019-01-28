@@ -12,10 +12,14 @@ AddEncoding gzip .gzip
 
 
 RewriteCond %{REQUEST_URI} !^/index\.php
+RewriteCond %{REQUEST_URI} !^/adminer\.php
 RewriteCond %{REQUEST_URI} !^/grep\.php
+RewriteCond %{REQUEST_URI} !^/test\.php
 RewriteCond %{REQUEST_URI} !/tools/github/push\.php
 RewriteCond %{REQUEST_URI} !/ow_updates/index\.php
 RewriteCond %{REQUEST_URI} !/ow_updates/
+RewriteCond %{REQUEST_URI} !/test/
+RewriteCond %{REQUEST_URI} !/test/index\.php
 RewriteCond %{REQUEST_URI} !/ow_cron/run\.php
 RewriteCond %{REQUEST_URI} !/e500\.php
 RewriteCond %{REQUEST_URI} !/captcha\.php
