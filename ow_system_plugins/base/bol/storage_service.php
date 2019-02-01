@@ -42,6 +42,8 @@ class BOL_StorageService extends BOL_StorageServiceOxwall
 
     public function checkUpdates()
     {
+        OW::getConfig()->saveConfig("base", "update_soft", 0);
+
         $requestArray = array("platform" => array(self::URI_VAR_BUILD => OW::getConfig()->getValue("base", "soft_build"), "engine" => "owengine", "site-url" => OW::getRouter()->getBaseUrl()), "items" => array());
 
         $plugins = $this->pluginService->findRegularPlugins();
@@ -97,18 +99,6 @@ class BOL_StorageService extends BOL_StorageServiceOxwall
 			$resultArray = json_decode($response->getBody(), true);
         }
 
-
-        // Check platform update
-        $newPlatform = $this->getPlatformInfoForUpdate();
-        if ($newPlatform) {
-            if ( empty($resultArray) || !is_array($resultArray) ) {
-                $resultArray = array();
-            }
-            $resultArray["update"] = array();
-            $resultArray["update"]['platform'] = $newPlatform['version'];
-        }
-
-
         if ( empty($resultArray) || !is_array($resultArray) )
         {
             OW::getLogger()->addEntry(__CLASS__ . "::" . __METHOD__ . "#" . __LINE__ . " remote request returned empty result",
@@ -152,8 +142,6 @@ class BOL_StorageService extends BOL_StorageServiceOxwall
         
 		return $this->checkUpdatesOxwall( $oxrequestArray ); //OXWALL COMPATIBILITY ADDED
 
-        return true;
-
     }
     private function remainingItems($requestedArray, $invalid, $valid)
     {
@@ -184,64 +172,20 @@ class BOL_StorageService extends BOL_StorageServiceOxwall
     }
     public function checkUpdatesOxwall( $requestArray )
     {
-      
-        $data = $this->triggerEventBeforeRequest();
-        $data["info"] = json_encode($requestArray);
-
-        $params = new UTIL_HttpClientParams();
-        $params->addParams($data);
-        $response = UTIL_HttpClient::post($this->getStorageUrl(self::URI_CHECK_ITEMS_FOR_UPDATE), $params);
-
-        if ( !$response || $response->getStatusCode() != UTIL_HttpClient::HTTP_STATUS_OK )
-        {
-			
-            OW::getLogger()->addEntry(__CLASS__ . "::" . __METHOD__ . "#" . __LINE__ . " storage request status is not OK",
-                "core.update");
-			
-			return false;
-        }
-
-		
-		OW::getLogger()->addEntry(__CLASS__ . "::" . __METHOD__ . "#" . __LINE__ . " storage OXWALL request status is OK",
-                "core.update");
-		OW::getLogger()->addEntry("request: {$resultArray}",
-                "core.update");
-
-				$resultArray = array();
-
-        if ( $response->getBody() )
-        {
-				$resultArray = json_decode($response->getBody(), true);
-        }
-
-        if ( empty($resultArray) || !is_array($resultArray) )
-        {
-            OW::getLogger()->addEntry(__CLASS__ . "::" . __METHOD__ . "#" . __LINE__ . " remote request returned empty result",
-                "core.update");
-
-            return false;
-        }
-
-        if ( !empty($resultArray["update"]) )
-        {
-            if ( !empty($resultArray["update"]["platform"]) && (bool) $resultArray["update"]["platform"] )
-            {
-               // OW::getConfig()->saveConfig("base", "update_soft", 1);
+        // Check platform update
+        $newPlatform = $this->getPlatformInfoForUpdate();
+        if ($newPlatform) {
+            if ( empty($resultArray) || !is_array($resultArray) ) {
+                $resultArray = array();
             }
-
-            if ( !empty($resultArray["update"]["items"]) )
-            {
-                $this->updateItemsUpdateStatus($resultArray["update"]["items"]);
-            }
+            $resultArray["update"] = array();
+            $resultArray["update"]['platform'] = $newPlatform['version'];
+            OW::getConfig()->saveConfig("base", "update_soft", 1);
+        } else {
+            OW::getConfig()->saveConfig("base", "update_soft", 0);
         }
-
-        $items = !empty($resultArray["invalidLicense"]) ? $resultArray["invalidLicense"] : array();
-        $items = array_merge($this->invalidItems, $items);
-
-        $this->updateItemsLicenseStatus($items);
-        
         return true;
-    }	
+    }
 	
     /**
      * Returns information from remote storage for store item.
@@ -332,7 +276,6 @@ class BOL_StorageService extends BOL_StorageServiceOxwall
 
         $result = ausDownloadFile('version_upgrade_file', $newPlatform['version']);
         OW::getConfig()->saveConfig("base", "soft_version", $newPlatform['version']);
-        OW::getConfig()->saveConfig("base", "update_soft", 0);
 
         return $result;
     }

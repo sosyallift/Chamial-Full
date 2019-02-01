@@ -215,6 +215,8 @@ class ADMIN_CTRL_Storage extends ADMIN_CTRL_StorageAbstract
             $errorMessage = $language->text("admin", "core_update_download_error");
         }
 
+        OW::getConfig()->saveConfig("base", "update_soft", 0);
+
         if ( $errorMessage !== false )
         {
             OW::getApplication()->setMaintenanceMode(false);
